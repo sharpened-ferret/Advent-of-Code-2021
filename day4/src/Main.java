@@ -8,9 +8,13 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
+        task1("src/input.txt");
+    }
+
+    public static void task1(String filepath) {
         ArrayList<Integer> bingoNumbers = new ArrayList<>();
         ArrayList<Grid> grids = new ArrayList<>();
-        String fileAddress = "src/input.txt";
+        String fileAddress = filepath;
         int lineNum = 1;
 
         try {
@@ -36,8 +40,9 @@ public class Main {
                         for (int x = 0; x < 5; x++) {
                             currentGrid.grid[x][y] = gridLine[x];
                         }
+                        currentGrid.numbers.addAll(Arrays.stream(gridLine).boxed().collect(Collectors.toList()));
                     }
-                    System.out.println(currentGrid);
+                    grids.add(currentGrid);
                     if (InputReader.hasNextLine()) {
                         lineData = InputReader.nextLine();
                         if (!lineData.trim().isEmpty()) {
@@ -50,6 +55,14 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+
+        for (int bingoNum : bingoNumbers) {
+            for (Grid grid : grids) {
+                if (grid.checkNum(bingoNum)){
+                    return;
+                }
+            }
         }
     }
 }
