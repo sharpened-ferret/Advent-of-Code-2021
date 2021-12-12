@@ -4,6 +4,7 @@ public class Grid {
     int grid[][] = new int[5][5];
     private boolean completedGrid[][] = new boolean[5][5];
     ArrayList<Integer> numbers = new ArrayList<>();
+    boolean hasWon = false;
 
     Grid() {}
 

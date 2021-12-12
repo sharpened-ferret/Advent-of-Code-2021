@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
-        task1("src/input.txt");
+        tasks("src/input.txt");
     }
 
-    public static void task1(String filepath) {
+    public static void tasks(String filepath) {
         ArrayList<Integer> bingoNumbers = new ArrayList<>();
         ArrayList<Grid> grids = new ArrayList<>();
         String fileAddress = filepath;
@@ -57,12 +57,17 @@ public class Main {
             e.printStackTrace();
         }
 
+        int winningBoards = 0;
         for (int bingoNum : bingoNumbers) {
             for (Grid grid : grids) {
-                if (grid.checkNum(bingoNum)){
-                    return;
+                if (!grid.hasWon) {
+                    if (grid.checkNum(bingoNum)) {
+                        winningBoards++;
+                        grid.hasWon = true;
+                    }
                 }
             }
         }
+        System.out.println("Winning Boards: "+winningBoards + " / " + grids.size());
     }
 }
